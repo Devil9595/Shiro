@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Somaiya bank</title>
+    <style>
+    /* ===== GLOBAL ===== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f7f9fc;
+    color: #222;
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ===== LOGIN BOX ===== */
+.box {
+    width: 340px;
+    margin: 60px auto;
+    padding: 28px;
+    background: white;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ===== INPUT ===== */
+input, select {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 6px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 13px;
+    background: white;
+    color: #333;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #e57373;
+    box-shadow: 0 0 8px rgba(255,100,100,0.3);
+}
+
+/* ===== BUTTON (ENCHANT RED STYLE) ===== */
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #d46a6a;
+    background: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+/* shimmer */
+button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 100, 100, 0.25),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:hover {
+    box-shadow: 0 0 12px rgba(255,100,100,0.4);
+    transform: translateY(-2px);
+}
+
+/* soft button */
+button.soft {
+    border: 1px solid #ddd;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 25px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.nav-links span {
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 13px;
+    position: relative;
+}
+
+/* underline hover */
+.nav-links span::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #e57373;
+    left: 0;
+    bottom: -3px;
+    transition: 0.3s;
+}
+
+.nav-links span:hover::after {
+    width: 100%;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+/* ===== MAIN GRID ===== */
+.main {
+    padding: 24px;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+/* ===== CARD ===== */
+.card {
+    width: 100%;
+    padding: 25px;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(255,100,100,0.15);
+}
+
+/* ===== PROFILE BOX ===== */
+.profile-box {
+    position: fixed;
+    right: 20px;
+    top: 64px;
+    width: 280px;
+    background: white;
+    padding: 18px;
+    border-radius: 15px;
+    font-size: 13px;
+    z-index: 999;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 12px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th {
+    background: #ffe5e5;
+    padding: 8px;
+    text-align: left;
+}
+
+td {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover td {
+    background: #fff5f5;
+}
+
+/* ===== BADGES ===== */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+}
+
+.badge-green { background: #00c87a; }
+.badge-blue { background: #4da6ff; }
+.badge-orange { background: #ff9500; }
+.badge-red { background: #ff4545; }
+.badge-purple { background: #9c27b0; }
+.badge-pink { background: #e91e8c; }
+.badge-lock { background: #607d8b; }
+
+/* ===== STATS ===== */
+.stat-row {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.stat-box {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 16px;
+    min-width: 110px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255,100,100,0.2);
+}
+
+.stat-val {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.stat-lbl {
+    font-size: 11px;
+    opacity: 0.7;
+}
+
+/* ===== SCHEME CARDS ===== */
+.scheme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+}
+
+.scheme-card {
+    background: white;
+    border-radius: 14px;
+    padding: 16px;
+    border-left: 4px solid #e57373;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.scheme-card.nri {
+    border-left-color: #4da6ff;
+}
+
+.scheme-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+}
+
+.scheme-card p {
+    margin: 0;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* ===== TABS ===== */
+.tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    background: white;
+    border: 1px solid #ddd;
+}
+
+.tab.active {
+    border-color: #e57373;
+    box-shadow: 0 0 8px rgba(255,100,100,0.3);
+}
+
+/* ===== ERROR ===== */
+.error {
+    color: #ff4d4d;
+    font-size: 13px;
+}
+
+/* ===== RESPONSE ===== */
+#response {
+    margin-top: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #d46a6a;
+}
+</style>
+</head>
+<body>
+ 
+<script>
+// ===================== EMBEDDED DATABASE =====================
+const DB = {
+  customers: [
+    {customer_id:1,full_name:"Rukhmi Sharma",phone:"9876543210",email:"rukhmi@example.com",dob:"2017-03-15",gender:"Female",aadhaar_last4:"1234",pan:"ABCRS1234A",kyc_status:"Verified",
+     address:{line1:"101, Sunflower Apartments",line2:"Lokhandwala Complex",city:"Mumbai",state:"Maharashtra",pincode:"400053",country:"India"},nri:false},
+    {customer_id:2,full_name:"Sneha Patil",phone:"9876543211",email:"sneha@example.com",dob:"1995-01-19",gender:"Female",aadhaar_last4:"5678",pan:"DEFSP5678B",kyc_status:"Verified",
+     address:{line1:"23, Prabhat Road",line2:"Near FC Road",city:"Pune",state:"Maharashtra",pincode:"411004",country:"India"},nri:false},
+    {customer_id:3,full_name:"Rahul Gupta",phone:"9876543212",email:"rahul@example.com",dob:"1988-12-12",gender:"Male",aadhaar_last4:"9101",pan:"GHIRG9101C",kyc_status:"Verified",
+     address:{line1:"Flat 5B, Green Park",line2:"Connaught Place Area",city:"Delhi",state:"Delhi",pincode:"110001",country:"India"},nri:false},
+    {customer_id:4,full_name:"Farhan Khan",phone:"9876543213",email:"farhan@example.com",dob:"2014-08-17",gender:"Male",aadhaar_last4:"1121",pan:"JKLFK1121D",kyc_status:"Verified",
+     address:{line1:"78, Hawa Mahal Road",line2:"Pink City",city:"Jaipur",state:"Rajasthan",pincode:"302001",country:"India"},nri:false},
+    {customer_id:5,full_name:"Ananya Joshi",phone:"9876543214",email:"ananya@example.com",dob:"1997-06-04",gender:"Female",aadhaar_last4:"3141",pan:"MNOAJ3141E",kyc_status:"Verified",
+     address:{line1:"12, Gangapur Road",line2:"CBS",city:"Nashik",state:"Maharashtra",pincode:"422013",country:"India"},nri:false},
+    {customer_id:6,full_name:"Rohan Mehta",phone:"9876543215",email:"rohan@example.com",dob:"1992-11-30",gender:"Male",aadhaar_last4:"5161",pan:"PQRRM5161F",kyc_status:"Verified",
+     address:{line1:"9, New Market Street",line2:"MP Nagar",city:"Bhopal",state:"Madhya Pradesh",pincode:"462011",country:"India"},nri:false},
+    {customer_id:7,full_name:"Rashmi Hanjankar",phone:"9833273458",email:"rashmi@example.com",dob:"2002-05-11",gender:"Female",aadhaar_last4:"7181",pan:"STVRH7181G",kyc_status:"Verified",
+     address:{line1:"Room 204, MIT Girls Hostel",line2:"Paud Road",city:"Pune",state:"Maharashtra",pincode:"411038",country:"India"},nri:false},
+    {customer_id:8,full_name:"Laksh Mahajan",phone:"8108805511",email:"laksh@example.com",dob:"2003-01-28",gender:"Male",aadhaar_last4:"9202",pan:"UVWLM9202H",kyc_status:"Verified",
+     address:{line1:"Flat 302, Shree Residency",line2:"Andheri West",city:"Mumbai",state:"Maharashtra",pincode:"400058",country:"India"},nri:false},
+    {customer_id:9,full_name:"Dev Patel",phone:"9324656416",email:"dev@example.com",dob:"2002-09-14",gender:"Male",aadhaar_last4:"1222",pan:"XYZDP1222I",kyc_status:"Verified",
+     address:{line1:"Sector 15, Plot 22",line2:"Vashi",city:"Navi Mumbai",state:"Maharashtra",pincode:"400703",country:"India"},nri:false},
+    {customer_id:10,full_name:"Riddhima Khare",phone:"9326166072",email:"riddhima@example.com",dob:"2003-07-03",gender:"Female",aadhaar_last4:"3242",pan:"ABCRK3242J",kyc_status:"Verified",
+     address:{line1:"A/204, BKC Residences",line2:"Bandra Kurla Complex",city:"Mumbai",state:"Maharashtra",pincode:"400051",country:"India"},nri:false}
+  ],
+  accounts: [
+    {account_id:1,customer_id:1,account_number:"SB100001001",account_type:"Savings",balance:42500.75,currency:"INR",branch:"Andheri West, Mumbai",ifsc_code:"SHIR0001001",status:"Active"},
+    {account_id:2,customer_id:2,account_number:"SB100001002",account_type:"Savings",balance:67200.25,currency:"INR",branch:"Pune Shivajinagar",ifsc_code:"SHIR0001002",status:"Active"},
+    {account_id:3,customer_id:3,account_number:"SB100001003",account_type:"Savings",balance:33450.00,currency:"INR",branch:"Delhi Connaught Place",ifsc_code:"SHIR0001003",status:"Active"},
+    {account_id:4,customer_id:4,account_number:"SB100001004",account_type:"Savings",balance:22100.60,currency:"INR",branch:"Jaipur Pink City",ifsc_code:"SHIR0001004",status:"Active"},
+    {account_id:5,customer_id:5,account_number:"SB100001005",account_type:"Savings",balance:89600.00,currency:"INR",branch:"Nashik CBS Branch",ifsc_code:"SHIR0001005",status:"Active"},
+    {account_id:6,customer_id:6,account_number:"CA100001006",account_type:"Current",balance:175000.00,currency:"INR",branch:"Bhopal New Market",ifsc_code:"SHIR0001006",status:"Active"},
+    {account_id:7,customer_id:7,account_number:"SB100001007",account_type:"Savings",balance:54800.00,currency:"INR",branch:"Pune FC Road Branch",ifsc_code:"SHIR0001007",status:"Active"},
+    {account_id:8,customer_id:8,account_number:"SB100001008",account_type:"Savings",balance:38250.50,currency:"INR",branch:"Andheri West, Mumbai",ifsc_code:"SHIR0001008",status:"Active"},
+    {account_id:9,customer_id:9,account_number:"CA100001009",account_type:"Current",balance:71000.00,currency:"INR",branch:"Vashi, Navi Mumbai",ifsc_code:"SHIR0001009",status:"Active"},
+    {account_id:10,customer_id:10,account_number:"SB100001010",account_type:"Savings",balance:29900.75,currency:"INR",branch:"Bandra Kurla Complex",ifsc_code:"SHIR0001010",status:"Active"}
+  ],
+  transactions: [
+    {txn_id:1,account_id:1,txn_type:"Credit",amount:10000,balance_after:52500.75,description:"Salary credit",ref_number:"TXN2024030001",counterparty:"Shiro Corp HR",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:2,account_id:1,txn_type:"UPI",amount:2000,balance_after:50500.75,description:"Groceries",ref_number:"TXN2024030002",counterparty:"BigBasket",txn_date:"2024-03-05",status:"Success"},
+    {txn_id:3,account_id:1,txn_type:"ATM",amount:8000,balance_after:42500.75,description:"ATM withdrawal",ref_number:"TXN2024030003",counterparty:"-",txn_date:"2024-03-10",status:"Success"},
+    {txn_id:4,account_id:2,txn_type:"Credit",amount:22000,balance_after:89200.25,description:"Monthly salary",ref_number:"TXN2024030004",counterparty:"Infosys",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:5,account_id:2,txn_type:"UPI",amount:22000,balance_after:67200.25,description:"Home loan EMI",ref_number:"TXN2024030005",counterparty:"HDFC Home Loans",txn_date:"2024-03-05",status:"Success"},
+    {txn_id:6,account_id:3,txn_type:"Credit",amount:30000,balance_after:63450.00,description:"Salary",ref_number:"TXN2024030006",counterparty:"Wipro Ltd",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:7,account_id:3,txn_type:"UPI",amount:10000,balance_after:53450.00,description:"Online shopping",ref_number:"TXN2024030007",counterparty:"Amazon India",txn_date:"2024-03-09",status:"Success"},
+    {txn_id:8,account_id:3,txn_type:"ATM",amount:20000,balance_after:33450.00,description:"ATM cash",ref_number:"TXN2024030008",counterparty:"-",txn_date:"2024-03-12",status:"Success"},
+    {txn_id:9,account_id:4,txn_type:"Credit",amount:12000,balance_after:34100.60,description:"Part-time income",ref_number:"TXN2024030009",counterparty:"Swiggy Delivery",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:10,account_id:4,txn_type:"UPI",amount:12000,balance_after:22100.60,description:"Phone & electricity",ref_number:"TXN2024030010",counterparty:"Jio & MSEDCL",txn_date:"2024-03-10",status:"Success"},
+    {txn_id:11,account_id:5,txn_type:"Credit",amount:35000,balance_after:124600.00,description:"Salary",ref_number:"TXN2024030011",counterparty:"TCS Pune",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:12,account_id:5,txn_type:"NEFT",amount:35000,balance_after:89600.00,description:"Rent payment",ref_number:"TXN2024030012",counterparty:"Landlord Kulkarni",txn_date:"2024-03-04",status:"Success"},
+    {txn_id:13,account_id:6,txn_type:"Credit",amount:80000,balance_after:255000.00,description:"Business receipt",ref_number:"TXN2024030013",counterparty:"Global Tech Ltd",txn_date:"2024-03-03",status:"Success"},
+    {txn_id:14,account_id:6,txn_type:"RTGS",amount:80000,balance_after:175000.00,description:"Vendor payment",ref_number:"TXN2024030014",counterparty:"Supply Co. India",txn_date:"2024-03-06",status:"Success"},
+    {txn_id:15,account_id:7,txn_type:"Credit",amount:25000,balance_after:79800.00,description:"Internship stipend",ref_number:"TXN2024030015",counterparty:"Infosys BPM",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:16,account_id:7,txn_type:"UPI",amount:15000,balance_after:64800.00,description:"College fees",ref_number:"TXN2024030016",counterparty:"MIT Pune",txn_date:"2024-03-03",status:"Success"},
+    {txn_id:17,account_id:7,txn_type:"ATM",amount:10000,balance_after:54800.00,description:"ATM withdrawal",ref_number:"TXN2024030017",counterparty:"-",txn_date:"2024-03-08",status:"Success"},
+    {txn_id:18,account_id:8,txn_type:"Credit",amount:20000,balance_after:58250.50,description:"Part-time salary",ref_number:"TXN2024030018",counterparty:"Shiro Corp HR",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:19,account_id:8,txn_type:"UPI",amount:10000,balance_after:48250.50,description:"Hostel rent",ref_number:"TXN2024030019",counterparty:"PG Owner Sharma",txn_date:"2024-03-05",status:"Success"},
+    {txn_id:20,account_id:8,txn_type:"Debit",amount:10000,balance_after:38250.50,description:"Project expenses",ref_number:"TXN2024030020",counterparty:"Electronics Store",txn_date:"2024-03-11",status:"Success"}
+  ],
+  loans: [
+    {loan_id:1,customer_id:1,loan_type:"Personal",principal:300000,outstanding:210000,interest_rate:12.5,tenure_months:36,emi_amount:10041.67,next_emi_date:"2024-04-05",status:"Active"},
+    {loan_id:2,customer_id:2,loan_type:"Home",principal:3500000,outstanding:3200000,interest_rate:8.5,tenure_months:240,emi_amount:30411.00,next_emi_date:"2024-04-05",status:"Active"},
+    {loan_id:3,customer_id:3,loan_type:"Education",principal:500000,outstanding:420000,interest_rate:10.0,tenure_months:48,emi_amount:12683.00,next_emi_date:"2024-04-05",status:"Active"},
+    {loan_id:4,customer_id:5,loan_type:"Vehicle",principal:600000,outstanding:480000,interest_rate:9.0,tenure_months:60,emi_amount:12450.00,next_emi_date:"2024-04-01",status:"Active"},
+    {loan_id:5,customer_id:6,loan_type:"Business",principal:2000000,outstanding:1800000,interest_rate:11.0,tenure_months:60,emi_amount:43470.00,next_emi_date:"2024-04-01",status:"Active"},
+    {loan_id:6,customer_id:10,loan_type:"Personal",principal:150000,outstanding:90000,interest_rate:14.0,tenure_months:24,emi_amount:7213.00,next_emi_date:"2024-04-07",status:"Active"}
+  ],
+  cards: [
+    {card_id:1,account_id:1,card_type:"Debit",card_last4:"1001",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2027-03-31"},
+    {card_id:2,account_id:2,card_type:"Debit",card_last4:"1002",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2026-08-31"},
+    {card_id:3,account_id:3,card_type:"Credit",card_last4:"1003",network:"Visa",credit_limit:100000,outstanding_due:9500,due_date:"2024-04-10",status:"Active",expiry_date:"2026-06-30"},
+    {card_id:4,account_id:4,card_type:"Debit",card_last4:"1004",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2025-11-30"},
+    {card_id:5,account_id:5,card_type:"Credit",card_last4:"1005",network:"Mastercard",credit_limit:120000,outstanding_due:14200,due_date:"2024-04-15",status:"Active",expiry_date:"2027-01-31"},
+    {card_id:6,account_id:6,card_type:"Credit",card_last4:"1006",network:"Visa",credit_limit:500000,outstanding_due:45000,due_date:"2024-04-01",status:"Active",expiry_date:"2027-05-31"},
+    {card_id:7,account_id:7,card_type:"Debit",card_last4:"1007",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2026-12-31"},
+    {card_id:8,account_id:8,card_type:"Debit",card_last4:"1008",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2026-03-31"},
+    {card_id:9,account_id:9,card_type:"Debit",card_last4:"1009",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2025-10-31"},
+    {card_id:10,account_id:10,card_type:"Debit",card_last4:"1010",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2027-02-28"}
+  ],
+  fixed_deposits: [
+    {fd_id:1,customer_id:2,principal:200000,interest_rate:7.1,tenure_months:24,maturity_amount:230440,start_date:"2023-03-01",maturity_date:"2025-03-01",status:"Active"},
+    {fd_id:2,customer_id:6,principal:500000,interest_rate:7.5,tenure_months:12,maturity_amount:537500,start_date:"2024-01-01",maturity_date:"2025-01-01",status:"Active"},
+    {fd_id:3,customer_id:9,principal:100000,interest_rate:7.0,tenure_months:12,maturity_amount:107000,start_date:"2024-01-01",maturity_date:"2025-01-01",status:"Active"}
+  ]
+};
+ 
+// ========== SCHEMES DATA ==========
+const SCHEMES = {
+  womens: [
+    {name:"Mahila Samridhi Yojana",tag:"Savings",desc:"Special savings scheme for women with 0.5% extra interest rate. Minimum deposit ₹500, maximum ₹2,00,000. Linked with Jan Dhan accounts."},
+    {name:"Sukanya Samridhi Account",tag:"Girl Child",desc:"Government-backed scheme for girl children below 10 years. Interest rate 8.2% p.a. Tax-free maturity amount under Section 80C."},
+    {name:"Stree Shakti Loan Scheme",tag:"Business Loan",desc:"Collateral-free business loans upto ₹25 lakh for women entrepreneurs at 0.5% concession on interest rates. No processing fee."},
+    {name:"Mahila Savings Certificate",tag:"Fixed Income",desc:"3-year fixed deposit exclusively for women with 7.7% interest. Premature withdrawal allowed after 1 year with minor penalty."},
+    {name:"Nari Shakti Home Loan",tag:"Home Loan",desc:"Home loans for women applicants at 0.05% lower rate. Additional ₹50,000 top-up for solar panel installation. Co-applicant benefit available."},
+    {name:"SHG-Bank Linkage Programme",tag:"Microfinance",desc:"Credit facility for women Self Help Groups up to ₹10 lakh at 7% p.a. No collateral required. Supported by NABARD guidelines."}
+  ],
+  nri: [
+    {name:"NRE Savings Account",tag:"NRI Savings",desc:"Non-Resident External account in INR. Freely repatriable. Interest income tax-free in India. Joint account with resident relative allowed."},
+    {name:"NRO Account",tag:"NRI Income",desc:"Non-Resident Ordinary account for income earned in India (rent, dividends). Up to USD 1 million repatriable per year after taxes."},
+    {name:"FCNR (B) Deposit",tag:"Foreign Currency FD",desc:"Fixed deposit in foreign currencies (USD, GBP, EUR). Fully repatriable. Term: 1-5 years. Protected against exchange rate fluctuations."},
+    {name:"NRI Home Loan",tag:"Property",desc:"Home loans for NRIs purchasing property in India. Loan upto ₹5 crore. EMI can be paid from NRE/NRO account. Joint borrower option."},
+    {name:"NRI Investment in Mutual Funds",tag:"Investment",desc:"NRIs can invest in Indian mutual funds via NRE/NRO accounts. Automatic repatriation facility. FATCA compliance required for US/Canada NRIs."},
+    {name:"Remittance Plus Service",tag:"Money Transfer",desc:"Zero-fee inward remittance upto $10,000/month. Real-time credit to linked savings account. Exchange rate locked at time of transfer."}
+  ]
+};
+ 
+// ========== CHILD LOCK RULES (RBI Guidelines) ==========
+const CHILD_LOCK_RULES = {
+  blocked: [
+    "Credit Card issuance (minors cannot hold credit cards as per RBI)",
+    "Overdraft / Loan applications (no credit facility for minors)",
+    "RTGS / NEFT above ₹10,000 per transaction",
+    "International transactions & forex services",
+    "Fixed Deposit booking above ₹50,000 without guardian approval",
+    "Third-party fund transfer above ₹5,000/day",
+    "Investment in Mutual Funds, Stocks, or Derivatives"
+  ],
+  allowed: [
+    "Basic Savings Account with deposit & withdrawal",
+    "ATM withdrawals up to ₹2,000/day",
+    "UPI payments up to ₹2,000/day",
+    "View account balance and mini-statements",
+    "Fixed Deposits up to ₹50,000 (guardian co-sign required)",
+    "Sukanya Samridhi / Minor savings schemes",
+    "Passbook & e-statement download"
+  ]
+};
+ 
+// ========== HELPERS ==========
+function getCustomerByEmail(email){ return DB.customers.find(c=>c.email.toLowerCase()===email.toLowerCase())||null; }
+function getAccountByCustomer(cid){ return DB.accounts.filter(a=>a.customer_id===cid); }
+function getTransactionsByCustomer(cid){ const ids=getAccountByCustomer(cid).map(a=>a.account_id); return DB.transactions.filter(t=>ids.includes(t.account_id)); }
+function getLoansByCustomer(cid){ return DB.loans.filter(l=>l.customer_id===cid); }
+function getCardsByCustomer(cid){ const ids=getAccountByCustomer(cid).map(a=>a.account_id); return DB.cards.filter(c=>ids.includes(c.account_id)); }
+function getFDsByCustomer(cid){ return DB.fixed_deposits.filter(f=>f.customer_id===cid); }
+function fmt(n){ return '₹'+Number(n).toLocaleString('en-IN',{minimumFractionDigits:2}); }
+function calcAge(dob){ const d=new Date(dob),n=new Date(); let a=n.getFullYear()-d.getFullYear(); if(n.getMonth()<d.getMonth()||(n.getMonth()===d.getMonth()&&n.getDate()<d.getDate()))a--; return a; }
+function isMinor(cust){ return calcAge(cust.dob)<18; }
+function fmtAddress(addr){ return `${addr.line1}, ${addr.line2}, ${addr.city}, ${addr.state} - ${addr.pincode}`; }
+</script>
+ 
+<!-- ======= PAGES ======= -->
+<div id="choicePage" class="box">
+    <h2>Welcome </h2>
+    <p style="opacity:0.8;font-size:14px">Shiro — Powered by Real Data</p>
+    <button onclick="showLogin()"> Sign In</button>
+    <button onclick="showSignup()"> Create Account</button>
+
+</div>
+ 
+<div id="loginPage" class="box hidden">
+    <h2>Sign In</h2>
+    <input id="loginEmail" placeholder="Email" autocomplete="off">
+    <input id="loginPass" type="password" placeholder="Password">
+    <p id="loginErr" class="error"></p>
+    <button onclick="login()">Login</button>
+    <button onclick="showChoice()" class="soft">← Back</button>
+</div>
+ 
+<div id="signupPage" class="box hidden">
+    <h2>Create Account</h2>
+    <input id="suName" placeholder="Full Name">
+    <input id="suEmail" placeholder="Email">
+    <input id="suPhone" placeholder="Phone">
+    <input id="suBank" placeholder="Bank Name">
+    <input id="suAcc" placeholder="Account Number">
+    <input id="suPass" type="password" placeholder="Password">
+    <button onclick="signup()">Create</button>
+    <button onclick="showChoice()" class="soft">← Back</button>
+</div>
+ 
+<div id="adminLoginPage" class="box hidden">
+    <h2>🔑 Admin / Demo</h2>
+    <p style="font-size:13px;opacity:0.8">Pick a customer to explore their data</p>
+    <select id="adminSelect"><option value="">-- Select Customer --</option></select>
+    <button onclick="adminEnter()">Enter Dashboard</button>
+    <button onclick="showChoice()" class="soft">← Back</button>
+</div>
+ 
+<div id="dashboard" class="hidden">
+    <div class="navbar">
+        <div class="nav-links">
+            <span onclick="selectSection('home')">🏠 Home</span>
+            <span onclick="selectSection('transactions')">💳 Transactions</span>
+            <span onclick="selectSection('balance')">💰 Balance</span>
+            <span id="navLoans" onclick="selectSection('loans')">🏦 Loans</span>
+            <span id="navCards" onclick="selectSection('cards')">🪪 Cards</span>
+            <span onclick="selectSection('fd')">📈 FDs</span>
+            <span onclick="selectSection('schemes')">🎯 Schemes</span>
+            <span onclick="selectSection('rbi')">📋 RBI QnA</span>
+        </div>
+        <div class="nav-right">
+            <span id="minorBadge" class="badge badge-lock hidden">🔒 Minor</span>
+            <span onclick="toggleProfile()" style="cursor:pointer;font-size:18px">👤</span>
+            <span onclick="logout()" style="cursor:pointer;opacity:0.8">Logout</span>
+        </div>
+    </div>
+    <div class="main"><div class="card" id="content"></div></div>
+</div>
+ 
+<div id="profileBox" class="profile-box hidden"></div>
+ 
+<script>
+let user = {}, loggedInCustomer = null, currentSection = "home";
+ 
+window.onload = function(){
+    const sel = document.getElementById('adminSelect');
+    DB.customers.forEach(c => {
+        const age = calcAge(c.dob);
+        sel.innerHTML += `<option value="${c.customer_id}">${c.full_name} (${c.email}) ${age<18?'🔒 Minor':''}</option>`;
+    });
+};
+ 
+function showChoice(){ hideAll(); choicePage.classList.remove("hidden"); }
+function showLogin(){ hideAll(); loginPage.classList.remove("hidden"); }
+function showSignup(){ hideAll(); signupPage.classList.remove("hidden"); }
+function adminLogin(){ hideAll(); adminLoginPage.classList.remove("hidden"); }
+function hideAll(){ ['choicePage','loginPage','signupPage','adminLoginPage','dashboard'].forEach(id=>document.getElementById(id).classList.add("hidden")); }
+ 
+function adminEnter(){
+    const id = parseInt(document.getElementById('adminSelect').value);
+    if(!id) return alert("Please select a customer.");
+    loggedInCustomer = DB.customers.find(c=>c.customer_id===id);
+    user = {name:loggedInCustomer.full_name,email:loggedInCustomer.email,phone:loggedInCustomer.phone};
+    openDashboard();
+}
+ 
+function signup(){
+    user = {name:suName.value,email:suEmail.value,phone:suPhone.value};
+    loggedInCustomer = getCustomerByEmail(suEmail.value);
+    openDashboard();
+}
+ 
+function login(){
+    const em = document.getElementById('loginEmail').value.trim();
+    const cust = getCustomerByEmail(em);
+    if(cust){
+        loggedInCustomer = cust;
+        user = {name:cust.full_name,email:cust.email,phone:cust.phone};
+        document.getElementById('loginErr').innerText = "";
+        openDashboard();
+    } else {
+        document.getElementById('loginErr').innerText = "❌ Email not found in database.";
+    }
+}
+ 
+function logout(){ loggedInCustomer=null; user={}; hideAll(); choicePage.classList.remove("hidden"); }
+ 
+function openDashboard(){
+    hideAll();
+    dashboard.classList.remove("hidden");
+    // Show minor badge if applicable
+    const mb = document.getElementById('minorBadge');
+    if(loggedInCustomer && isMinor(loggedInCustomer)){
+        mb.classList.remove("hidden");
+        // Restrict nav items visually
+        document.getElementById('navLoans').style.opacity="0.4";
+        document.getElementById('navLoans').title="🔒 Restricted for minors";
+        document.getElementById('navCards').style.opacity="0.4";
+        document.getElementById('navCards').title="🔒 Restricted for minors";
+    } else {
+        mb.classList.add("hidden");
+        document.getElementById('navLoans').style.opacity="1";
+        document.getElementById('navCards').style.opacity="1";
+    }
+    selectSection('home');
+}
+ 
+function selectSection(section){
+    currentSection = section;
+    const c = document.getElementById('content');
+    if(!loggedInCustomer){
+        c.innerHTML=`<h2>${section.toUpperCase()}</h2><p>No DB record found. Use Admin Login to browse real data.</p><button onclick="startVoice()">🎤 Voice Bot</button><p id="response"></p>`;
+        return;
+    }
+    const cid = loggedInCustomer.customer_id;
+    const minor = isMinor(loggedInCustomer);
+ 
+    // Child lock enforcement
+    if(minor && (section==='loans' || section==='cards')){
+        renderChildBlocked(c, section);
+        return;
+    }
+    if(section==='home') renderHome(c,cid,minor);
+    else if(section==='transactions') renderTransactions(c,cid,minor);
+    else if(section==='balance') renderBalance(c,cid);
+    else if(section==='loans') renderLoans(c,cid);
+    else if(section==='cards') renderCards(c,cid);
+    else if(section==='fd') renderFDs(c,cid,minor);
+    else if(section==='schemes') renderSchemes(c);
+    else if(section==='rbi') renderRBI(c,minor);
+}
+ 
+// ---- HOME ----
+function renderHome(c,cid,minor){
+    const accs=getAccountByCustomer(cid), totalBal=accs.reduce((s,a)=>s+a.balance,0);
+    const txns=getTransactionsByCustomer(cid), loans=getLoansByCustomer(cid);
+    const totalOut=loans.reduce((s,l)=>s+l.outstanding,0);
+    const age=calcAge(loggedInCustomer.dob);
+    const addr=loggedInCustomer.address;
+    const isF=loggedInCustomer.gender==='Female';
+ 
+    c.innerHTML=`
+        ${minor?`<div class="child-lock-banner"><span class="lock-icon">🔒</span><div><b>Child Lock Active</b><br><span style="font-size:12px">Some features are restricted per RBI guidelines for account holders under 18.</span></div></div>`:''}
+        <div class="section-title">👋 Welcome, ${loggedInCustomer.full_name}</div>
+        <p style="font-size:12px;opacity:0.75">Age ${age} • ${loggedInCustomer.gender} • ${addr.city}, ${addr.state}</p>
+        <p style="opacity:0.8;font-size:13px">KYC: <span class="badge badge-green">${loggedInCustomer.kyc_status}</span>${minor?' <span class="badge badge-lock">🔒 Minor Account</span>':''}${isF?' <span class="badge badge-pink">♀ Women Schemes Available</span>':''}</p>
+        <div class="stat-row">
+            <div class="stat-box"><div class="stat-val">${fmt(totalBal)}</div><div class="stat-lbl">Total Balance</div></div>
+            <div class="stat-box"><div class="stat-val">${accs.length}</div><div class="stat-lbl">Account(s)</div></div>
+            <div class="stat-box"><div class="stat-val">${txns.length}</div><div class="stat-lbl">Transactions</div></div>
+            <div class="stat-box"><div class="stat-val">${loans.length>0?fmt(totalOut):'None'}</div><div class="stat-lbl">${minor?'🔒 Loans':'Loan Outstanding'}</div></div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:10px 14px;text-align:left;font-size:13px;margin:12px 0">
+            📍 <b>Address:</b> ${fmtAddress(addr)}
+        </div>
+        ${minor?`<div style="background:rgba(96,125,139,0.3);border-radius:10px;padding:10px 14px;text-align:left;font-size:12px;margin:8px 0"><b>🔒 Daily Limits (Child Lock)</b>: ATM ₹2,000 • UPI ₹2,000 • No loans or credit cards</div>`:''}
+        <button onclick="startVoice()" style="margin-top:10px">🎤 Voice Assistant</button>
+        <p id="response"></p>
+    `;
+}
+ 
+// ---- BALANCE ----
+function renderBalance(c,cid){
+    const accs=getAccountByCustomer(cid);
+    const rows=accs.map(a=>`<tr><td>${a.account_number}</td><td><span class="badge badge-blue">${a.account_type}</span></td><td><b>${fmt(a.balance)}</b></td><td>${a.branch}</td><td>${a.ifsc_code}</td><td><span class="badge badge-green">${a.status}</span></td></tr>`).join('');
+    c.innerHTML=`<div class="section-title">💰 Account Balance</div><table><tr><th>Account No.</th><th>Type</th><th>Balance</th><th>Branch</th><th>IFSC</th><th>Status</th></tr>${rows}</table><button onclick="startVoice()" style="margin-top:14px">🎤 Ask Voice Bot</button><p id="response"></p>`;
+}
+ 
+// ---- TRANSACTIONS ----
+function renderTransactions(c,cid,minor){
+    const accs=getAccountByCustomer(cid);
+    const accMap={};
+    accs.forEach(a=>accMap[a.account_id]=a.account_number);
+    const txns=getTransactionsByCustomer(cid);
+    const typeColors={Credit:'badge-green',UPI:'badge-blue',ATM:'badge-orange',NEFT:'badge-blue',RTGS:'badge-blue',Debit:'badge-orange'};
+ 
+    // For minors, flag large transactions
+    const rows=txns.map(t=>{
+        const flagged=minor&&(t.txn_type==='RTGS'||(t.amount>10000&&t.txn_type!=='Credit'));
+        return `<tr ${flagged?'style="opacity:0.5"':''}><td>${t.txn_date}</td><td>${accMap[t.account_id]||t.account_id}</td><td><span class="badge ${typeColors[t.txn_type]||''}">${t.txn_type}</span></td><td>${t.description}${flagged?' 🔒':''}</td><td>${fmt(t.amount)}</td><td>${fmt(t.balance_after)}</td><td>${t.counterparty}</td></tr>`;
+    }).join('');
+ 
+    c.innerHTML=`
+        <div class="section-title">💳 Transactions</div>
+        ${minor?'<p style="font-size:12px;background:rgba(96,125,139,0.3);padding:8px 12px;border-radius:8px">🔒 Transactions above limits are flagged (greyed out) per child lock rules.</p>':''}
+        <table><tr><th>Date</th><th>Account</th><th>Type</th><th>Description</th><th>Amount</th><th>Balance After</th><th>Counterparty</th></tr>${rows}</table>
+        <button onclick="startVoice()" style="margin-top:14px">🎤 Ask Voice Bot</button><p id="response"></p>`;
+}
+ 
+// ---- LOANS ----
+function renderLoans(c,cid){
+    const loans=getLoansByCustomer(cid);
+    if(!loans.length){c.innerHTML=`<div class="section-title">🏦 Loans</div><p>No active loans found.</p>`;return;}
+    const rows=loans.map(l=>`<tr><td><span class="badge badge-orange">${l.loan_type}</span></td><td>${fmt(l.principal)}</td><td>${fmt(l.outstanding)}</td><td>${l.interest_rate}%</td><td>${l.tenure_months} mo</td><td>${fmt(l.emi_amount)}</td><td>${l.next_emi_date}</td><td><span class="badge badge-green">${l.status}</span></td></tr>`).join('');
+    c.innerHTML=`<div class="section-title">🏦 Loans</div><table><tr><th>Type</th><th>Principal</th><th>Outstanding</th><th>Rate</th><th>Tenure</th><th>EMI</th><th>Next EMI</th><th>Status</th></tr>${rows}</table>`;
+}
+ 
+// ---- CARDS ----
+function renderCards(c,cid){
+    const cards=getCardsByCustomer(cid);
+    const rows=cards.map(card=>`<tr><td><span class="badge ${card.card_type==='Credit'?'badge-orange':'badge-blue'}">${card.card_type}</span></td><td>**** **** **** ${card.card_last4}</td><td>${card.network}</td><td>${card.credit_limit?fmt(card.credit_limit):'-'}</td><td>${card.outstanding_due?fmt(card.outstanding_due):'-'}</td><td>${card.due_date||'-'}</td><td>${card.expiry_date}</td><td><span class="badge badge-green">${card.status}</span></td></tr>`).join('');
+    c.innerHTML=`<div class="section-title">🪪 Cards</div><table><tr><th>Type</th><th>Card No.</th><th>Network</th><th>Credit Limit</th><th>Due</th><th>Due Date</th><th>Expiry</th><th>Status</th></tr>${rows}</table>`;
+}
+ 
+// ---- FDs ----
+function renderFDs(c,cid,minor){
+    const fds=getFDsByCustomer(cid);
+    if(!fds.length){
+        c.innerHTML=`<div class="section-title">📈 Fixed Deposits</div><p>No fixed deposits found.</p>
+        ${minor?`<p style="font-size:12px;opacity:0.8">🔒 Minors can open FDs up to ₹50,000 with guardian co-signature as per RBI guidelines.</p>`:''}`;
+        return;
+    }
+    const rows=fds.map(f=>`<tr><td>${fmt(f.principal)}</td><td>${f.interest_rate}%</td><td>${f.tenure_months} mo</td><td>${fmt(f.maturity_amount)}</td><td>${f.start_date}</td><td>${f.maturity_date}</td><td><span class="badge badge-green">${f.status}</span></td></tr>`).join('');
+    c.innerHTML=`<div class="section-title">📈 Fixed Deposits</div><table><tr><th>Principal</th><th>Rate</th><th>Tenure</th><th>Maturity Amount</th><th>Start</th><th>End</th><th>Status</th></tr>${rows}</table>`;
+}
+ 
+// ---- SCHEMES ----
+function renderSchemes(c){
+    const isF = loggedInCustomer && loggedInCustomer.gender==='Female';
+    const isNRI = loggedInCustomer && loggedInCustomer.nri;
+    const minor = loggedInCustomer && isMinor(loggedInCustomer);
+ 
+    c.innerHTML=`
+        <div class="section-title">🎯 Special Schemes</div>
+        <p style="font-size:13px;opacity:0.85">Explore government-backed and bank schemes tailored for you.</p>
+        <div class="tabs">
+            <button class="tab active" onclick="showSchemeTab(this,'womens')">♀ Women's Schemes</button>
+            <button class="tab" onclick="showSchemeTab(this,'nri')">✈️ NRI Schemes</button>
+        </div>
+        <div id="schemesContent"></div>
+    `;
+    renderSchemeList('womens');
+}
+ 
+function showSchemeTab(btn, type){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
+    renderSchemeList(type);
+}
+ 
+function renderSchemeList(type){
+    const sc = document.getElementById('schemesContent');
+    const isF = loggedInCustomer && loggedInCustomer.gender==='Female';
+    const minor = loggedInCustomer && isMinor(loggedInCustomer);
+    const schemes = SCHEMES[type];
+    const eligible = type==='womens' ? isF : true;
+ 
+    let html = '';
+    if(!eligible && type==='womens') html=`<p style="font-size:13px;opacity:0.75">ℹ️ Women's schemes are designed for female account holders. Shown below for reference.</p>`;
+    if(minor && type!=='womens') html+=`<p style="font-size:12px;background:rgba(96,125,139,0.3);padding:8px;border-radius:8px">🔒 NRI investment schemes require the account holder to be 18+. Guardian approval needed.</p>`;
+ 
+    html += `<div class="scheme-grid">`;
+    schemes.forEach(s=>{
+        html+=`<div class="scheme-card ${type==='nri'?'nri':''}">
+            <span class="tag">${s.tag}</span>
+            <h4>${s.name}</h4>
+            <p>${s.desc}</p>
+        </div>`;
+    });
+    html += `</div>`;
+    sc.innerHTML = html;
+}
+ 
+// ---- CHILD LOCKED PAGE ----
+function renderChildBlocked(c, section){
+    c.innerHTML=`
+        <div class="child-lock-banner" style="justify-content:center">
+            <span class="lock-icon">🔒</span>
+            <div><b>Feature Locked — Child Account</b><br><span style="font-size:12px">This section is restricted for account holders under 18 as per RBI guidelines.</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+            <div style="background:rgba(255,69,69,0.2);border-radius:12px;padding:14px;text-align:left">
+                <b style="font-size:13px">🚫 Not Allowed for Minors</b>
+                <ul style="margin:8px 0 0 0;padding-left:16px;font-size:12px;opacity:0.9;line-height:1.8">
+                    ${CHILD_LOCK_RULES.blocked.map(r=>`<li>${r}</li>`).join('')}
+                </ul>
+            </div>
+            <div style="background:rgba(0,200,122,0.2);border-radius:12px;padding:14px;text-align:left">
+                <b style="font-size:13px">✅ Allowed for Minors</b>
+                <ul style="margin:8px 0 0 0;padding-left:16px;font-size:12px;opacity:0.9;line-height:1.8">
+                    ${CHILD_LOCK_RULES.allowed.map(r=>`<li>${r}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+        <p style="font-size:11px;opacity:0.7;margin-top:12px">Source: RBI Master Direction on Savings Bank Accounts & Basic Savings Bank Deposit Accounts</p>
+    `;
+}
+ 
+// ---- RBI QnA ----
+function renderRBI(c, minor){
+    c.innerHTML=`
+        <div class="section-title">📋 RBI QnA</div>
+        ${minor?`<div class="child-lock-banner" style="margin-bottom:10px"><span>🔒</span><div style="font-size:12px"><b>Child Lock Active:</b> The voice bot will answer questions within minor account limits only.</div></div>`:''}
+        <p style="font-size:13px;opacity:0.85">Ask questions about RBI guidelines, banking rules, and regulations.</p>
+        <button onclick="startVoice()">🎤 Ask Voice Bot</button>
+        <p id="response"></p>
+    `;
+}
+ 
+// ---- PROFILE ----
+function toggleProfile(){
+    const box = document.getElementById('profileBox');
+    if(box.classList.contains("hidden")){
+        box.classList.remove("hidden");
+        const cu = loggedInCustomer;
+        const age = cu ? calcAge(cu.dob) : null;
+        const addr = cu ? cu.address : null;
+        box.innerHTML=`
+            <h3 style="margin:0 0 10px 0">👤 Profile</h3>
+            ${cu?`
+                <p><b>Name:</b> ${cu.full_name}</p>
+                <p><b>Email:</b> ${cu.email}</p>
+                <p><b>Phone:</b> ${cu.phone}</p>
+                <p><b>DOB:</b> ${cu.dob} (Age ${age})</p>
+                <p><b>Gender:</b> ${cu.gender}</p>
+                <p><b>PAN:</b> ${cu.pan}</p>
+                <p><b>Aadhaar:</b> ****${cu.aadhaar_last4}</p>
+                <p><b>KYC:</b> <span class="badge badge-green">${cu.kyc_status}</span></p>
+                ${age<18?`<p><span class="badge badge-lock">🔒 Minor Account</span></p>`:''}
+                <hr class="divider">
+                <p style="font-size:12px"><b>📍 Address</b></p>
+                <p style="font-size:12px;line-height:1.6">${addr.line1}<br>${addr.line2}<br>${addr.city}, ${addr.state}<br>PIN: ${addr.pincode}<br>${addr.country}</p>
+            `:`
+                <p>Name: ${user.name||''}</p>
+                <p>Email: ${user.email||''}</p>
+                <p>Phone: ${user.phone||''}</p>
+            `}
+            <button onclick="toggleProfile()" class="soft" style="margin-top:8px;font-size:12px">Close</button>
+        `;
+    } else { box.classList.add("hidden"); }
+}
+ 
+// ---- VOICE BOT ----
+async function startVoice(){
+    const rb = document.getElementById("response");
+    if(!rb) return;
+    rb.innerText = "Connecting to voice bot...";
+    let context = "";
+    if(loggedInCustomer){
+        const cid=loggedInCustomer.customer_id;
+        const minor=isMinor(loggedInCustomer);
+        const accs=getAccountByCustomer(cid);
+        const txns=getTransactionsByCustomer(cid).slice(0,5);
+        const loans=getLoansByCustomer(cid);
+        const addr=loggedInCustomer.address;
+        context=`Customer: ${loggedInCustomer.full_name}. Age: ${calcAge(loggedInCustomer.dob)}. Gender: ${loggedInCustomer.gender}. Minor: ${minor}. Address: ${fmtAddress(addr)}. City: ${addr.city}, State: ${addr.state}, PIN: ${addr.pincode}. Accounts: ${JSON.stringify(accs)}. Recent Txns: ${JSON.stringify(txns)}. Loans: ${JSON.stringify(loans)}. Child lock active: ${minor}.`;
+    }
+    try {
+        const res=await fetch("https://shiro-voice-bank--lakshmahajan1.replit.app/voice-query",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:currentSection,context})});
+        const data=await res.json();
+        rb.innerText = data.response||"No response from bot";
+    } catch(e){ rb.innerText="❌ Cannot connect to voice bot"; }
+}
+</script>
+</body>
+</html>
