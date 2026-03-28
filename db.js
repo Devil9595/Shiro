@@ -31,7 +31,7 @@ const DB = {
     {account_id:6,customer_id:6,account_number:"CA100001006",account_type:"Current",balance:175000.00,currency:"INR",branch:"Bhopal New Market",ifsc_code:"SHIR0001006",status:"Active"},
     {account_id:7,customer_id:7,account_number:"SB100001007",account_type:"Savings",balance:54800.00,currency:"INR",branch:"Pune FC Road Branch",ifsc_code:"SHIR0001007",status:"Active"},
     {account_id:8,customer_id:8,account_number:"SB100001008",account_type:"Savings",balance:38250.50,currency:"INR",branch:"Andheri West, Mumbai",ifsc_code:"SHIR0001008",status:"Active"},
-    {account_id:9,customer_id:9,account_number:"CA100001009",account_type:"Current",balance:71000.00,currency:"INR",branch:"Vashi, Navi Mumbai",ifsc_code:"SHIR0001009",status:"Active"},
+    {account_id:9,customer_id:9,account_number:"CA100001009",account_type:"Current",balance:7100000000.00,currency:"INR",branch:"Vashi, Navi Mumbai",ifsc_code:"SHIR0001009",status:"Active"},
     {account_id:10,customer_id:10,account_number:"SB100001010",account_type:"Savings",balance:29900.75,currency:"INR",branch:"Bandra Kurla Complex",ifsc_code:"SHIR0001010",status:"Active"}
   ],
   transactions: [
