@@ -20,7 +20,11 @@ const DB = {
     {customer_id:9,full_name:"Dev Patel",phone:"9324656416",email:"dev2369595@gmail.com",dob:"2002-09-14",gender:"Male",aadhaar_last4:"1222",pan:"XYZDP1222I",kyc_status:"Verified",
      address:{line1:"Sector 15, Plot 22",line2:"Vashi",city:"Navi Mumbai",state:"Maharashtra",pincode:"400703",country:"India"},nri:false},
     {customer_id:10,full_name:"Riddhima Khare",phone:"9326166072",email:"riddhima@example.com",dob:"2003-07-03",gender:"Female",aadhaar_last4:"3242",pan:"ABCRK3242J",kyc_status:"Verified",
-     address:{line1:"A/204, BKC Residences",line2:"Bandra Kurla Complex",city:"Mumbai",state:"Maharashtra",pincode:"400051",country:"India"},nri:false}
+     address:{line1:"A/204, BKC Residences",line2:"Bandra Kurla Complex",city:"Mumbai",state:"Maharashtra",pincode:"400051",country:"India"},nri:false,pwd:false},
+    {customer_id:11,full_name:"Meena Iyer",phone:"9820345678",email:"meena.iyer@example.com",dob:"1978-04-10",gender:"Female",aadhaar_last4:"4411",pan:"MNYPI4411K",kyc_status:"Verified",
+     address:{line1:"Flat 7, Lotus Colony",line2:"Thane West",city:"Thane",state:"Maharashtra",pincode:"400601",country:"India"},nri:false,pwd:true,disability_type:"Locomotor Disability",disability_percentage:60,udid:"UDID-MH-2021-00411"},
+    {customer_id:12,full_name:"Arvind Nair",phone:"9765432100",email:"arvind.nair@example.com",dob:"1961-07-22",gender:"Male",aadhaar_last4:"8833",pan:"ARNPN8833L",kyc_status:"Verified",
+     address:{line1:"22, Kochi Garden Estate",line2:"Ernakulam",city:"Kochi",state:"Kerala",pincode:"682011",country:"India"},nri:false,pwd:true,disability_type:"Visual Impairment",disability_percentage:75,udid:"UDID-KL-2019-00833"}
   ],
   accounts: [
     {account_id:1,customer_id:1,account_number:"SB100001001",account_type:"Savings",balance:42500.75,currency:"INR",branch:"Andheri West, Mumbai",ifsc_code:"SHIR0001001",status:"Active"},
@@ -32,7 +36,9 @@ const DB = {
     {account_id:7,customer_id:7,account_number:"SB100001007",account_type:"Savings",balance:54800.00,currency:"INR",branch:"Pune FC Road Branch",ifsc_code:"SHIR0001007",status:"Active"},
     {account_id:8,customer_id:8,account_number:"SB100001008",account_type:"Savings",balance:38250.50,currency:"INR",branch:"Andheri West, Mumbai",ifsc_code:"SHIR0001008",status:"Active"},
     {account_id:9,customer_id:9,account_number:"CA100001009",account_type:"Current",balance:7100000000.00,currency:"INR",branch:"Vashi, Navi Mumbai",ifsc_code:"SHIR0001009",status:"Active"},
-    {account_id:10,customer_id:10,account_number:"SB100001010",account_type:"Savings",balance:29900.75,currency:"INR",branch:"Bandra Kurla Complex",ifsc_code:"SHIR0001010",status:"Active"}
+    {account_id:10,customer_id:10,account_number:"SB100001010",account_type:"Savings",balance:29900.75,currency:"INR",branch:"Bandra Kurla Complex",ifsc_code:"SHIR0001010",status:"Active"},
+    {account_id:11,customer_id:11,account_number:"SB100001011",account_type:"Savings",balance:51200.00,currency:"INR",branch:"Thane West Branch",ifsc_code:"SHIR0001011",status:"Active"},
+    {account_id:12,customer_id:12,account_number:"SB100001012",account_type:"Savings",balance:84750.50,currency:"INR",branch:"Kochi Ernakulam Branch",ifsc_code:"SHIR0001012",status:"Active"}
   ],
   transactions: [
     {txn_id:1,account_id:1,txn_type:"Credit",amount:10000,balance_after:52500.75,description:"Salary credit",ref_number:"TXN2024030001",counterparty:"Shiro Corp HR",txn_date:"2024-03-01",status:"Success"},
@@ -54,7 +60,13 @@ const DB = {
     {txn_id:17,account_id:7,txn_type:"ATM",amount:10000,balance_after:54800.00,description:"ATM withdrawal",ref_number:"TXN2024030017",counterparty:"-",txn_date:"2024-03-08",status:"Success"},
     {txn_id:18,account_id:8,txn_type:"Credit",amount:20000,balance_after:58250.50,description:"Part-time salary",ref_number:"TXN2024030018",counterparty:"Shiro Corp HR",txn_date:"2024-03-01",status:"Success"},
     {txn_id:19,account_id:8,txn_type:"UPI",amount:10000,balance_after:48250.50,description:"Hostel rent",ref_number:"TXN2024030019",counterparty:"PG Owner Sharma",txn_date:"2024-03-05",status:"Success"},
-    {txn_id:20,account_id:8,txn_type:"Debit",amount:10000,balance_after:38250.50,description:"Project expenses",ref_number:"TXN2024030020",counterparty:"Electronics Store",txn_date:"2024-03-11",status:"Success"}
+    {txn_id:20,account_id:8,txn_type:"Debit",amount:10000,balance_after:38250.50,description:"Project expenses",ref_number:"TXN2024030020",counterparty:"Electronics Store",txn_date:"2024-03-11",status:"Success"},
+    {txn_id:21,account_id:11,txn_type:"Credit",amount:18000,balance_after:69200.00,description:"Disability pension credit",ref_number:"TXN2024030021",counterparty:"Govt Pension Cell",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:22,account_id:11,txn_type:"UPI",amount:8000,balance_after:61200.00,description:"Medical equipment",ref_number:"TXN2024030022",counterparty:"Jaipur Foot NGO",txn_date:"2024-03-06",status:"Success"},
+    {txn_id:23,account_id:11,txn_type:"ATM",amount:10000,balance_after:51200.00,description:"ATM withdrawal",ref_number:"TXN2024030023",counterparty:"-",txn_date:"2024-03-09",status:"Success"},
+    {txn_id:24,account_id:12,txn_type:"Credit",amount:22000,balance_after:106750.50,description:"Pension credit",ref_number:"TXN2024030024",counterparty:"EPFO India",txn_date:"2024-03-01",status:"Success"},
+    {txn_id:25,account_id:12,txn_type:"NEFT",amount:12000,balance_after:94750.50,description:"Assistive device EMI",ref_number:"TXN2024030025",counterparty:"National Association for Blind",txn_date:"2024-03-04",status:"Success"},
+    {txn_id:26,account_id:12,txn_type:"UPI",amount:10000,balance_after:84750.50,description:"Medical consultation",ref_number:"TXN2024030026",counterparty:"AIIMS Kochi",txn_date:"2024-03-10",status:"Success"}
   ],
   loans: [
     {loan_id:1,customer_id:1,loan_type:"Personal",principal:300000,outstanding:210000,interest_rate:12.5,tenure_months:36,emi_amount:10041.67,next_emi_date:"2024-04-05",status:"Active"},
@@ -74,12 +86,15 @@ const DB = {
     {card_id:7,account_id:7,card_type:"Debit",card_last4:"1007",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2026-12-31"},
     {card_id:8,account_id:8,card_type:"Debit",card_last4:"1008",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2026-03-31"},
     {card_id:9,account_id:9,card_type:"Debit",card_last4:"1009",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2025-10-31"},
-    {card_id:10,account_id:10,card_type:"Debit",card_last4:"1010",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2027-02-28"}
+    {card_id:10,account_id:10,card_type:"Debit",card_last4:"1010",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2027-02-28"},
+    {card_id:11,account_id:11,card_type:"Debit",card_last4:"1011",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2027-08-31"},
+    {card_id:12,account_id:12,card_type:"Debit",card_last4:"1012",network:"RuPay",credit_limit:null,outstanding_due:null,due_date:null,status:"Active",expiry_date:"2026-11-30"}
   ],
   fixed_deposits: [
     {fd_id:1,customer_id:2,principal:200000,interest_rate:7.1,tenure_months:24,maturity_amount:230440,start_date:"2023-03-01",maturity_date:"2025-03-01",status:"Active"},
     {fd_id:2,customer_id:6,principal:500000,interest_rate:7.5,tenure_months:12,maturity_amount:537500,start_date:"2024-01-01",maturity_date:"2025-01-01",status:"Active"},
-    {fd_id:3,customer_id:9,principal:100000,interest_rate:7.0,tenure_months:12,maturity_amount:107000,start_date:"2024-01-01",maturity_date:"2025-01-01",status:"Active"}
+    {fd_id:3,customer_id:9,principal:100000,interest_rate:7.0,tenure_months:12,maturity_amount:107000,start_date:"2024-01-01",maturity_date:"2025-01-01",status:"Active"},
+    {fd_id:4,customer_id:12,principal:150000,interest_rate:7.75,tenure_months:12,maturity_amount:161625,start_date:"2024-02-01",maturity_date:"2025-02-01",status:"Active"}
   ]
 };
  
@@ -100,6 +115,22 @@ const SCHEMES = {
     {name:"NRI Home Loan",tag:"Property",desc:"Home loans for NRIs purchasing property in India. Loan upto ₹5 crore. EMI can be paid from NRE/NRO account. Joint borrower option."},
     {name:"NRI Investment in Mutual Funds",tag:"Investment",desc:"NRIs can invest in Indian mutual funds via NRE/NRO accounts. Automatic repatriation facility. FATCA compliance required for US/Canada NRIs."},
     {name:"Remittance Plus Service",tag:"Money Transfer",desc:"Zero-fee inward remittance upto $10,000/month. Real-time credit to linked savings account. Exchange rate locked at time of transfer."}
+  ],
+  pwd: [
+    {name:"Divyangjan Savings Account",tag:"Zero Charge",desc:"Specially designed savings account for Persons with Disabilities. Zero minimum balance, free cheque book, free NEFT/RTGS, and free doorstep banking up to 4 visits per month."},
+    {name:"PM-DAF Assistive Technology Loan",tag:"Low Interest Loan",desc:"Concessional loan up to ₹1.5 lakh at 5% p.a. for purchasing assistive devices — wheelchairs, hearing aids, prosthetic limbs, Braille devices, and screen readers. No collateral required."},
+    {name:"ADIP Scheme Linkage",tag:"Govt. Grant",desc:"Bank-facilitated access to Assistance to Disabled Persons (ADIP) scheme. Grants up to ₹20,000 for assistive equipment. UDID verification done at branch."},
+    {name:"Accessible Fixed Deposit",tag:"FD + Extra Rate",desc:"Fixed deposits for PWD customers earn an additional 0.25% over standard rates, plus 0.50% senior citizen benefit if age ≥ 60. No penalty on premature closure for medical emergencies."},
+    {name:"PWD Education Loan",tag:"Education",desc:"Education loans for students with disabilities up to ₹20 lakh at 8% p.a. with 0.5% subsidy under NHFDC scheme. Moratorium period of 1 year after course completion."},
+    {name:"Doorstep Banking for Divyangjan",tag:"Accessibility",desc:"Dedicated doorstep banking officer assigned to PWD customers with 40%+ disability. Cash pickup, cheque deposit, passbook update — all at home. Prior appointment via helpline 1800-111-109."}
+  ],
+  elderly: [
+    {name:"Senior Citizen Savings Scheme (SCSS)",tag:"Govt. Scheme",desc:"RBI-backed scheme for citizens 60+ (55+ for retirees). Deposit up to ₹30 lakh at 8.2% p.a. Quarterly interest payout. Tax benefit under Section 80C up to ₹1.5 lakh."},
+    {name:"Pradhan Mantri Vaya Vandana Yojana",tag:"Pension",desc:"LIC-administered pension scheme for senior citizens. Guaranteed 7.4% return for 10 years. Minimum purchase ₹1.5 lakh, maximum ₹15 lakh. Premature exit allowed for critical illness."},
+    {name:"Senior Citizen FD (Extra Rate)",tag:"Fixed Deposit",desc:"Senior citizens enjoy 0.50% extra interest on all fixed deposits over standard rates. Applicable on all tenures. Auto-renewal option available with TDS waiver on Form 15H submission."},
+    {name:"Reverse Mortgage Loan",tag:"Home Equity",desc:"Unlock the value of your home without selling it. Monthly payments of up to ₹50,000 against residential property. Loan tenure up to 20 years or lifetime. RBI regulated under NHB guidelines."},
+    {name:"Pension-Linked Savings Account",tag:"Zero Balance",desc:"Zero-balance savings account for pensioners with free unlimited transactions, priority queue at branches, free passbook, and dedicated senior citizen helpdesk. Pension auto-credited on the 1st."},
+    {name:"Senior Care Health Insurance Link",tag:"Insurance",desc:"Facilitated tie-up with insurance providers for senior citizen health cover up to ₹10 lakh. Premium debited directly from account. Pre-existing disease covered after 1-year waiting period."}
   ]
 };
  
@@ -135,4 +166,6 @@ function getFDsByCustomer(cid){ return DB.fixed_deposits.filter(f=>f.customer_id
 function fmt(n){ return '₹'+Number(n).toLocaleString('en-IN',{minimumFractionDigits:2}); }
 function calcAge(dob){ const d=new Date(dob),n=new Date(); let a=n.getFullYear()-d.getFullYear(); if(n.getMonth()<d.getMonth()||(n.getMonth()===d.getMonth()&&n.getDate()<d.getDate()))a--; return a; }
 function isMinor(cust){ return calcAge(cust.dob)<18; }
+function isPWD(cust){ return cust && cust.pwd===true; }
+function isElderly(cust){ return cust && calcAge(cust.dob)>=60; }
 function fmtAddress(addr){ return `${addr.line1}, ${addr.line2}, ${addr.city}, ${addr.state} - ${addr.pincode}`; }

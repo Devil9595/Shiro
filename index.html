@@ -2,7 +2,7 @@
 <html lang="en">
     
 <head>
-    <title>Somaiya bank</title>
+    <title>laksh cozy bank</title>
      <link rel="stylesheet" href="style.css">
     
 </head>
@@ -17,11 +17,21 @@
  
 <!-- ======= PAGES ======= -->
 <div id="choicePage" class="box">
-    <h2>Welcome </h2>
-    <p style="opacity:0.8;font-size:14px">Shiro — Powered by Real Data</p>
+    <div style="margin:0 auto 16px auto;display:flex;justify-content:center">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 90" width="240" height="90">
+        <rect width="240" height="90" fill="#111111" rx="12"/>
+        <polygon points="44,10 78,44 44,78 10,44" fill="#FFFFFF"/>
+        <polygon points="44,22 66,44 44,66 22,44" fill="#111111"/>
+        <polygon points="44,34 54,44 44,54 34,44" fill="#CC1E1E"/>
+        <line x1="90" y1="44" x2="228" y2="44" stroke="#CC1E1E" stroke-width="0.8"/>
+        <text x="92" y="38" font-family="Georgia,'Times New Roman',serif" font-size="22" font-weight="700" fill="#FFFFFF" letter-spacing="2">Laksh Cozy</text>
+        <text x="94" y="58" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="8" font-weight="400" fill="#CC1E1E" letter-spacing="8">BANK</text>
+        <text x="94" y="73" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="6" fill="#888888" letter-spacing="3">FINANCIAL CLARITY</text>
+      </svg>
+    </div>
+    <p style="opacity:0.8;font-size:14px">Powered by Real Data</p>
     <button onclick="showLogin()"> Sign In</button>
     <button onclick="showSignup()"> Create Account</button>
-
 </div>
  
 <div id="loginPage" class="box hidden">
@@ -46,7 +56,7 @@
 </div>
  
 <div id="adminLoginPage" class="box hidden">
-    <h2>🔑 Admin / Demo</h2>
+    <h2> Admin / Demo</h2>
     <p style="font-size:13px;opacity:0.8">Pick a customer to explore their data</p>
     <select id="adminSelect"><option value="">-- Select Customer --</option></select>
     <button onclick="adminEnter()">Enter Dashboard</button>
@@ -55,18 +65,31 @@
  
 <div id="dashboard" class="hidden">
     <div class="navbar">
+        <div style="display:flex;align-items:center;gap:0">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 54" width="280" height="54">
+            <rect width="280" height="54" fill="#111111" rx="8"/>
+            <polygon points="28,6 52,28 28,50 4,28" fill="#FFFFFF"/>
+            <polygon points="28,14 44,28 28,42 12,28" fill="#111111"/>
+            <polygon points="28,22 36,28 28,34 20,28" fill="#CC1E1E"/>
+            <line x1="60" y1="28" x2="275" y2="28" stroke="#CC1E1E" stroke-width="0.7"/>
+            <text x="62" y="24" font-family="Georgia,'Times New Roman',serif" font-size="17" font-weight="700" fill="#FFFFFF" letter-spacing="2">Laksh Cozy</text>
+            <text x="64" y="40" font-family="'Helvetica Neue',Helvetica,Arial,sans-serif" font-size="7" font-weight="400" fill="#CC1E1E" letter-spacing="6">BANK</text>
+          </svg>
+        </div>
         <div class="nav-links">
-            <span onclick="selectSection('home')">🏠 Home</span>
-            <span onclick="selectSection('transactions')">💳 Transactions</span>
-            <span onclick="selectSection('balance')">💰 Balance</span>
-            <span id="navLoans" onclick="selectSection('loans')">🏦 Loans</span>
-            <span id="navCards" onclick="selectSection('cards')">🪪 Cards</span>
-            <span onclick="selectSection('fd')">📈 FDs</span>
-            <span onclick="selectSection('schemes')">🎯 Schemes</span>
-            <span onclick="selectSection('rbi')">📋 RBI QnA</span>
+            <span onclick="selectSection('home')"> Home</span>
+            <span onclick="selectSection('transactions')"> Transactions</span>
+            <span onclick="selectSection('balance')"> Balance</span>
+            <span id="navLoans" onclick="selectSection('loans')"> Loans</span>
+            <span id="navCards" onclick="selectSection('cards')"> Cards</span>
+            <span onclick="selectSection('fd')"> FDs</span>
+            <span onclick="selectSection('schemes')"> Schemes</span>
+            <span onclick="selectSection('rbi')"> RBI QnA</span>
         </div>
         <div class="nav-right">
-            <span id="minorBadge" class="badge badge-lock hidden">🔒 Minor</span>
+            <span id="minorBadge" class="badge badge-lock hidden"> Minor</span>
+            <span id="pwdBadge" class="badge badge-blue hidden">♿ PWD</span>
+            <span id="elderlyBadge" class="badge badge-orange hidden">🌟 Senior</span>
             <span onclick="toggleProfile()" style="cursor:pointer;font-size:18px">👤</span>
             <span onclick="logout()" style="cursor:pointer;opacity:0.8">Logout</span>
         </div>
@@ -116,7 +139,7 @@ function login(){
         document.getElementById('loginErr').innerText = "";
         openDashboard();
     } else {
-        document.getElementById('loginErr').innerText = "❌ Email not found in database.";
+        document.getElementById('loginErr').innerText = " Email not found in database.";
     }
 }
  
@@ -125,20 +148,22 @@ function logout(){ loggedInCustomer=null; user={}; hideAll(); choicePage.classLi
 function openDashboard(){
     hideAll();
     dashboard.classList.remove("hidden");
-    // Show minor badge if applicable
     const mb = document.getElementById('minorBadge');
+    const pb = document.getElementById('pwdBadge');
+    const eb = document.getElementById('elderlyBadge');
     if(loggedInCustomer && isMinor(loggedInCustomer)){
         mb.classList.remove("hidden");
-        // Restrict nav items visually
         document.getElementById('navLoans').style.opacity="0.4";
-        document.getElementById('navLoans').title="🔒 Restricted for minors";
+        document.getElementById('navLoans').title=" Restricted for minors";
         document.getElementById('navCards').style.opacity="0.4";
-        document.getElementById('navCards').title="🔒 Restricted for minors";
+        document.getElementById('navCards').title=" Restricted for minors";
     } else {
         mb.classList.add("hidden");
         document.getElementById('navLoans').style.opacity="1";
         document.getElementById('navCards').style.opacity="1";
     }
+    if(loggedInCustomer && isPWD(loggedInCustomer)) pb.classList.remove("hidden"); else pb.classList.add("hidden");
+    if(loggedInCustomer && isElderly(loggedInCustomer)) eb.classList.remove("hidden"); else eb.classList.add("hidden");
     selectSection('home');
 }
  
@@ -177,8 +202,8 @@ function renderHome(c,cid,minor){
     const isF=loggedInCustomer.gender==='Female';
  
     c.innerHTML=`
-        ${minor?`<div class="child-lock-banner"><span class="lock-icon">🔒</span><div><b>Child Lock Active</b><br><span style="font-size:12px">Some features are restricted per RBI guidelines for account holders under 18.</span></div></div>`:''}
-        <div class="section-title">👋 Welcome, ${loggedInCustomer.full_name}</div>
+        ${minor?`<div class="child-lock-banner"><span class="lock-icon"></span><div><b>Child Lock Active</b><br><span style="font-size:12px">Some features are restricted per RBI guidelines for account holders under 18.</span></div></div>`:''}
+        <div class="section-title"> Welcome, ${loggedInCustomer.full_name}</div>
         <p style="font-size:12px;opacity:0.75">Age ${age} • ${loggedInCustomer.gender} • ${addr.city}, ${addr.state}</p>
         <p style="opacity:0.8;font-size:13px">KYC: <span class="badge badge-green">${loggedInCustomer.kyc_status}</span>${minor?' <span class="badge badge-lock">🔒 Minor Account</span>':''}${isF?' <span class="badge badge-pink">♀ Women Schemes Available</span>':''}</p>
         <div class="stat-row">
@@ -188,7 +213,7 @@ function renderHome(c,cid,minor){
             <div class="stat-box"><div class="stat-val">${loans.length>0?fmt(totalOut):'None'}</div><div class="stat-lbl">${minor?'🔒 Loans':'Loan Outstanding'}</div></div>
         </div>
         <div style="background:rgba(255,255,255,0.1);border-radius:10px;padding:10px 14px;text-align:left;font-size:13px;margin:12px 0">
-            📍 <b>Address:</b> ${fmtAddress(addr)}
+             <b>Address:</b> ${fmtAddress(addr)}
         </div>
         ${minor?`<div style="background:rgba(96,125,139,0.3);border-radius:10px;padding:10px 14px;text-align:left;font-size:12px;margin:8px 0"><b>🔒 Daily Limits (Child Lock)</b>: ATM ₹2,000 • UPI ₹2,000 • No loans or credit cards</div>`:''}
         <button onclick="startVoice()" style="margin-top:10px">🎤 Voice Assistant</button>
@@ -200,7 +225,7 @@ function renderHome(c,cid,minor){
 function renderBalance(c,cid){
     const accs=getAccountByCustomer(cid);
     const rows=accs.map(a=>`<tr><td>${a.account_number}</td><td><span class="badge badge-blue">${a.account_type}</span></td><td><b>${fmt(a.balance)}</b></td><td>${a.branch}</td><td>${a.ifsc_code}</td><td><span class="badge badge-green">${a.status}</span></td></tr>`).join('');
-    c.innerHTML=`<div class="section-title">💰 Account Balance</div><table><tr><th>Account No.</th><th>Type</th><th>Balance</th><th>Branch</th><th>IFSC</th><th>Status</th></tr>${rows}</table><button onclick="startVoice()" style="margin-top:14px">🎤 Ask Voice Bot</button><p id="response"></p>`;
+    c.innerHTML=`<div class="section-title"> Account Balance</div><table><tr><th>Account No.</th><th>Type</th><th>Balance</th><th>Branch</th><th>IFSC</th><th>Status</th></tr>${rows}</table><button onclick="startVoice()" style="margin-top:14px">🎤 Ask Voice Bot</button><p id="response"></p>`;
 }
  
 // ---- TRANSACTIONS ----
@@ -218,7 +243,7 @@ function renderTransactions(c,cid,minor){
     }).join('');
  
     c.innerHTML=`
-        <div class="section-title">💳 Transactions</div>
+        <div class="section-title"> Transactions</div>
         ${minor?'<p style="font-size:12px;background:rgba(96,125,139,0.3);padding:8px 12px;border-radius:8px">🔒 Transactions above limits are flagged (greyed out) per child lock rules.</p>':''}
         <table><tr><th>Date</th><th>Account</th><th>Type</th><th>Description</th><th>Amount</th><th>Balance After</th><th>Counterparty</th></tr>${rows}</table>
         <button onclick="startVoice()" style="margin-top:14px">🎤 Ask Voice Bot</button><p id="response"></p>`;
@@ -227,7 +252,7 @@ function renderTransactions(c,cid,minor){
 // ---- LOANS ----
 function renderLoans(c,cid){
     const loans=getLoansByCustomer(cid);
-    if(!loans.length){c.innerHTML=`<div class="section-title">🏦 Loans</div><p>No active loans found.</p>`;return;}
+    if(!loans.length){c.innerHTML=`<div class="section-title"> Loans</div><p>No active loans found.</p>`;return;}
     const rows=loans.map(l=>`<tr><td><span class="badge badge-orange">${l.loan_type}</span></td><td>${fmt(l.principal)}</td><td>${fmt(l.outstanding)}</td><td>${l.interest_rate}%</td><td>${l.tenure_months} mo</td><td>${fmt(l.emi_amount)}</td><td>${l.next_emi_date}</td><td><span class="badge badge-green">${l.status}</span></td></tr>`).join('');
     c.innerHTML=`<div class="section-title">🏦 Loans</div><table><tr><th>Type</th><th>Principal</th><th>Outstanding</th><th>Rate</th><th>Tenure</th><th>EMI</th><th>Next EMI</th><th>Status</th></tr>${rows}</table>`;
 }
@@ -236,37 +261,39 @@ function renderLoans(c,cid){
 function renderCards(c,cid){
     const cards=getCardsByCustomer(cid);
     const rows=cards.map(card=>`<tr><td><span class="badge ${card.card_type==='Credit'?'badge-orange':'badge-blue'}">${card.card_type}</span></td><td>**** **** **** ${card.card_last4}</td><td>${card.network}</td><td>${card.credit_limit?fmt(card.credit_limit):'-'}</td><td>${card.outstanding_due?fmt(card.outstanding_due):'-'}</td><td>${card.due_date||'-'}</td><td>${card.expiry_date}</td><td><span class="badge badge-green">${card.status}</span></td></tr>`).join('');
-    c.innerHTML=`<div class="section-title">🪪 Cards</div><table><tr><th>Type</th><th>Card No.</th><th>Network</th><th>Credit Limit</th><th>Due</th><th>Due Date</th><th>Expiry</th><th>Status</th></tr>${rows}</table>`;
+    c.innerHTML=`<div class="section-title"> Cards</div><table><tr><th>Type</th><th>Card No.</th><th>Network</th><th>Credit Limit</th><th>Due</th><th>Due Date</th><th>Expiry</th><th>Status</th></tr>${rows}</table>`;
 }
  
 // ---- FDs ----
 function renderFDs(c,cid,minor){
     const fds=getFDsByCustomer(cid);
     if(!fds.length){
-        c.innerHTML=`<div class="section-title">📈 Fixed Deposits</div><p>No fixed deposits found.</p>
-        ${minor?`<p style="font-size:12px;opacity:0.8">🔒 Minors can open FDs up to ₹50,000 with guardian co-signature as per RBI guidelines.</p>`:''}`;
+        c.innerHTML=`<div class="section-title"> Fixed Deposits</div><p>No fixed deposits found.</p>
+        ${minor?`<p style="font-size:12px;opacity:0.8"> Minors can open FDs up to ₹50,000 with guardian co-signature as per RBI guidelines.</p>`:''}`;
         return;
     }
     const rows=fds.map(f=>`<tr><td>${fmt(f.principal)}</td><td>${f.interest_rate}%</td><td>${f.tenure_months} mo</td><td>${fmt(f.maturity_amount)}</td><td>${f.start_date}</td><td>${f.maturity_date}</td><td><span class="badge badge-green">${f.status}</span></td></tr>`).join('');
-    c.innerHTML=`<div class="section-title">📈 Fixed Deposits</div><table><tr><th>Principal</th><th>Rate</th><th>Tenure</th><th>Maturity Amount</th><th>Start</th><th>End</th><th>Status</th></tr>${rows}</table>`;
+    c.innerHTML=`<div class="section-title"> Fixed Deposits</div><table><tr><th>Principal</th><th>Rate</th><th>Tenure</th><th>Maturity Amount</th><th>Start</th><th>End</th><th>Status</th></tr>${rows}</table>`;
 }
  
 // ---- SCHEMES ----
 function renderSchemes(c){
-    const isF = loggedInCustomer && loggedInCustomer.gender==='Female';
-    const isNRI = loggedInCustomer && loggedInCustomer.nri;
-    const minor = loggedInCustomer && isMinor(loggedInCustomer);
+    const pwd = loggedInCustomer && isPWD(loggedInCustomer);
+    const elderly = loggedInCustomer && isElderly(loggedInCustomer);
+    const defaultTab = pwd ? 'pwd' : (elderly ? 'elderly' : 'womens');
  
     c.innerHTML=`
-        <div class="section-title">🎯 Special Schemes</div>
+        <div class="section-title"> Special Schemes</div>
         <p style="font-size:13px;opacity:0.85">Explore government-backed and bank schemes tailored for you.</p>
         <div class="tabs">
-            <button class="tab active" onclick="showSchemeTab(this,'womens')">♀ Women's Schemes</button>
-            <button class="tab" onclick="showSchemeTab(this,'nri')">✈️ NRI Schemes</button>
+            <button class="tab ${defaultTab==='womens'?'active':''}" onclick="showSchemeTab(this,'womens')">♀ Women's</button>
+            <button class="tab ${defaultTab==='nri'?'active':''}" onclick="showSchemeTab(this,'nri')">✈️ NRI</button>
+            <button class="tab ${defaultTab==='pwd'?'active':''}" onclick="showSchemeTab(this,'pwd')">♿ PWD</button>
+            <button class="tab ${defaultTab==='elderly'?'active':''}" onclick="showSchemeTab(this,'elderly')">🌟 Senior Citizens</button>
         </div>
         <div id="schemesContent"></div>
     `;
-    renderSchemeList('womens');
+    renderSchemeList(defaultTab);
 }
  
 function showSchemeTab(btn, type){
@@ -279,16 +306,32 @@ function renderSchemeList(type){
     const sc = document.getElementById('schemesContent');
     const isF = loggedInCustomer && loggedInCustomer.gender==='Female';
     const minor = loggedInCustomer && isMinor(loggedInCustomer);
+    const pwd = loggedInCustomer && isPWD(loggedInCustomer);
+    const elderly = loggedInCustomer && isElderly(loggedInCustomer);
     const schemes = SCHEMES[type];
     const eligible = type==='womens' ? isF : true;
  
     let html = '';
     if(!eligible && type==='womens') html=`<p style="font-size:13px;opacity:0.75">ℹ️ Women's schemes are designed for female account holders. Shown below for reference.</p>`;
     if(minor && type!=='womens') html+=`<p style="font-size:12px;background:rgba(96,125,139,0.3);padding:8px;border-radius:8px">🔒 NRI investment schemes require the account holder to be 18+. Guardian approval needed.</p>`;
+    if(type==='pwd' && pwd){
+        const cu = loggedInCustomer;
+        html+=`<div style="background:rgba(77,166,255,0.12);border:1px solid rgba(77,166,255,0.3);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px">
+            <b>♿ PWD Profile Detected</b> — ${cu.disability_type} (${cu.disability_percentage}% disability) &nbsp;|&nbsp; UDID: <code>${cu.udid}</code>
+            <br><span style="opacity:0.75">You are automatically eligible for all schemes listed below. Present your UDID card at any branch for instant enrolment.</span>
+        </div>`;
+    }
+    if(type==='elderly' && elderly){
+        html+=`<div style="background:rgba(255,149,0,0.12);border:1px solid rgba(255,149,0,0.3);border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px">
+            <b>🌟 Senior Citizen Benefits Active</b> — Age ${calcAge(loggedInCustomer.dob)} years
+            <br><span style="opacity:0.75">You qualify for all senior citizen schemes and an additional 0.50% p.a. on Fixed Deposits.</span>
+        </div>`;
+    }
  
+    const cardClass = type==='nri' ? 'nri' : (type==='pwd' ? 'pwd' : (type==='elderly' ? 'elderly' : ''));
     html += `<div class="scheme-grid">`;
     schemes.forEach(s=>{
-        html+=`<div class="scheme-card ${type==='nri'?'nri':''}">
+        html+=`<div class="scheme-card ${cardClass}">
             <span class="tag">${s.tag}</span>
             <h4>${s.name}</h4>
             <p>${s.desc}</p>
@@ -302,18 +345,18 @@ function renderSchemeList(type){
 function renderChildBlocked(c, section){
     c.innerHTML=`
         <div class="child-lock-banner" style="justify-content:center">
-            <span class="lock-icon">🔒</span>
+            <span class="lock-icon"></span>
             <div><b>Feature Locked — Child Account</b><br><span style="font-size:12px">This section is restricted for account holders under 18 as per RBI guidelines.</span></div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
             <div style="background:rgba(255,69,69,0.2);border-radius:12px;padding:14px;text-align:left">
-                <b style="font-size:13px">🚫 Not Allowed for Minors</b>
+                <b style="font-size:13px"> Not Allowed for Minors</b>
                 <ul style="margin:8px 0 0 0;padding-left:16px;font-size:12px;opacity:0.9;line-height:1.8">
                     ${CHILD_LOCK_RULES.blocked.map(r=>`<li>${r}</li>`).join('')}
                 </ul>
             </div>
             <div style="background:rgba(0,200,122,0.2);border-radius:12px;padding:14px;text-align:left">
-                <b style="font-size:13px">✅ Allowed for Minors</b>
+                <b style="font-size:13px"> Allowed for Minors</b>
                 <ul style="margin:8px 0 0 0;padding-left:16px;font-size:12px;opacity:0.9;line-height:1.8">
                     ${CHILD_LOCK_RULES.allowed.map(r=>`<li>${r}</li>`).join('')}
                 </ul>
@@ -326,7 +369,7 @@ function renderChildBlocked(c, section){
 // ---- RBI QnA ----
 function renderRBI(c, minor){
     c.innerHTML=`
-        <div class="section-title">📋 RBI QnA</div>
+        <div class="section-title"> RBI QnA</div>
         ${minor?`<div class="child-lock-banner" style="margin-bottom:10px"><span>🔒</span><div style="font-size:12px"><b>Child Lock Active:</b> The voice bot will answer questions within minor account limits only.</div></div>`:''}
         <p style="font-size:13px;opacity:0.85">Ask questions about RBI guidelines, banking rules, and regulations.</p>
         <button onclick="startVoice()">🎤 Ask Voice Bot</button>
@@ -353,9 +396,11 @@ function toggleProfile(){
                 <p><b>PAN:</b> ${cu.pan}</p>
                 <p><b>Aadhaar:</b> ****${cu.aadhaar_last4}</p>
                 <p><b>KYC:</b> <span class="badge badge-green">${cu.kyc_status}</span></p>
-                ${age<18?`<p><span class="badge badge-lock">🔒 Minor Account</span></p>`:''}
+                ${age<18?`<p><span class="badge badge-lock"> Minor Account</span></p>`:''}
+                ${cu.pwd?`<p><span class="badge badge-blue">♿ PWD</span> &nbsp; ${cu.disability_type} (${cu.disability_percentage}%)</p><p style="font-size:11px;opacity:0.75">UDID: ${cu.udid}</p>`:''}
+                ${age>=60?`<p><span class="badge badge-orange">🌟 Senior Citizen</span> — Extra 0.50% on FDs</p>`:''}
                 <hr class="divider">
-                <p style="font-size:12px"><b>📍 Address</b></p>
+                <p style="font-size:12px"><b> Address</b></p>
                 <p style="font-size:12px;line-height:1.6">${addr.line1}<br>${addr.line2}<br>${addr.city}, ${addr.state}<br>PIN: ${addr.pincode}<br>${addr.country}</p>
             `:`
                 <p>Name: ${user.name||''}</p>
@@ -386,7 +431,7 @@ async function startVoice(){
         const res=await fetch("https://shiro-voice-bank--lakshmahajan1.replit.app/voice-query",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:currentSection,context})});
         const data=await res.json();
         rb.innerText = data.response||"No response from bot";
-    } catch(e){ rb.innerText="❌ Cannot connect to voice bot"; }
+    } catch(e){ rb.innerText=" Cannot connect to voice bot"; }
 }
 </script>
 </body>

@@ -358,3 +358,47 @@ tr:hover td {
 .scheme-card.nri {
     border-left-color: #4da6ff;
 }
+
+.scheme-card.pwd {
+    border-left-color: #4da6ff;
+    background: linear-gradient(145deg, #fff, #f0f7ff);
+}
+
+.scheme-card.elderly {
+    border-left-color: #ff9500;
+    background: linear-gradient(145deg, #fff, #fff8ee);
+}
+
+/* ===== TABS ===== */
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 10px 0 14px 0;
+}
+
+.tab {
+    width: auto;
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #ddd;
+    background: white;
+    color: #555;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tab:hover {
+    border-color: #e57373;
+    color: #d46a6a;
+    transform: translateY(-1px);
+}
+
+.tab.active {
+    background: #d46a6a;
+    border-color: #d46a6a;
+    color: white;
+    box-shadow: 0 3px 10px rgba(212,106,106,0.3);
+}
