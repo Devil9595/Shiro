@@ -17,7 +17,7 @@ const DB = {
      address:{line1:"Room 204, MIT Girls Hostel",line2:"Paud Road",city:"Pune",state:"Maharashtra",pincode:"411038",country:"India"},nri:false},
     {customer_id:8,full_name:"Laksh Mahajan",phone:"8108805511",email:"laksh@example.com",dob:"2003-01-28",gender:"Male",aadhaar_last4:"9202",pan:"UVWLM9202H",kyc_status:"Verified",
      address:{line1:"Flat 302, Shree Residency",line2:"Andheri West",city:"Mumbai",state:"Maharashtra",pincode:"400058",country:"India"},nri:false},
-    {customer_id:9,full_name:"Dev Patel",phone:"9324656416",email:"dev@example.com",dob:"2002-09-14",gender:"Male",aadhaar_last4:"1222",pan:"XYZDP1222I",kyc_status:"Verified",
+    {customer_id:9,full_name:"Dev Patel",phone:"9324656416",email:"dev2369595@gmail.com",dob:"2002-09-14",gender:"Male",aadhaar_last4:"1222",pan:"XYZDP1222I",kyc_status:"Verified",
      address:{line1:"Sector 15, Plot 22",line2:"Vashi",city:"Navi Mumbai",state:"Maharashtra",pincode:"400703",country:"India"},nri:false},
     {customer_id:10,full_name:"Riddhima Khare",phone:"9326166072",email:"riddhima@example.com",dob:"2003-07-03",gender:"Female",aadhaar_last4:"3242",pan:"ABCRK3242J",kyc_status:"Verified",
      address:{line1:"A/204, BKC Residences",line2:"Bandra Kurla Complex",city:"Mumbai",state:"Maharashtra",pincode:"400051",country:"India"},nri:false}
